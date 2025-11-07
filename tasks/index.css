@@ -1,0 +1,297 @@
+
+/* --- PALETA DE COLORES (MODO CLARO POR DEFECTO) --- */
+:root {
+  /* Nombres semánticos para cada color */
+  --color-bg-page: #d8f2f2;       /* Basado en tu --main-bg cian pálido */
+  --color-bg-lista: #ffffff;        /* Blanco para el contenedor principal */
+  --color-bg-input: #fafafa;      /* Un blanco ligeramente distinto para el input */
+  --color-text-primary: #1a1a1a;  /* Negro para texto principal */
+  --color-text-placeholder: #6c757d; /* Tu --text-dark */
+  --color-text-error: #ff0000;    /* Tu color de error */
+  --color-border-input: #d0d0d0;
+  --color-border-list: rgba(0, 0, 0, 0.1);
+  --color-shadow: rgba(0, 0, 0, 0.15); /* Sombra más suave */
+
+  /* Colores de Acento (Tus colores) */
+  --accent-primary: #51a8c3;        /* Botón Agregar */
+  --accent-primary-hover: #458ea2;
+  --accent-edit: #0062a5;           /* Botón Editar */
+  --accent-edit-hover: #004c81;
+  --accent-danger: #f81717;         /* Botón Eliminar */
+  --accent-danger-hover: #c92424;
+  
+  /* Sombra para el :focus del input */
+  --accent-focus-ring: rgba(81, 168, 195, 0.25); 
+
+  /* Colores de Scrollbar */
+  --scrollbar-track: rgba(0, 0, 0, 0.05);
+  --scrollbar-thumb: #b0b0b0;
+  --scrollbar-thumb-hover: #909090;
+}
+
+
+/* --- MODO OSCURO AUTOMÁTICO --- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Redefinimos las mismas variables para el modo oscuro */
+    --color-bg-page: #474f4f51;
+    --color-bg-lista: #252c2c;
+    --color-bg-input: #1f2626;
+    --color-text-primary: #f0f0f0;
+    --color-text-placeholder: #888888;
+    --color-text-error: #ec0000;
+    --color-border-input: #4a5555;
+    --color-border-list: rgba(255, 255, 255, 0.1);
+    --color-shadow: rgba(0, 0, 0, 0.4);
+
+    /* Los acentos pueden ser más brillantes en modo oscuro */
+    --accent-primary: #55b8d4;
+    --accent-primary-hover: #6bc9e3;
+    --accent-edit: #3e98d4;
+    --accent-edit-hover: #5aa9e0;
+    --accent-danger: #ff4d4d;
+    --accent-danger-hover: #ff6b6b;
+    
+    --accent-focus-ring: rgba(85, 184, 212, 0.4);
+
+    /* Colores de Scrollbar */
+    --scrollbar-track: rgba(255, 255, 255, 0.05);
+    --scrollbar-thumb: #555;
+    --scrollbar-thumb-hover: #777;
+  }
+}
+
+
+/* --- ESTILOS GENERALES Y DE LA APP --- */
+/* Añadimos transiciones suaves para el cambio de modo */
+body {
+  background-color: var(--primary-color);
+  font-family: "Inter", sans-serif; /* Moví la fuente aquí */
+  transition: background-color 0.3s ease;
+}
+
+main {
+  width: 100%;
+  max-width: 40rem;
+  /* Usamos la variable de fondo de la app */
+  background-color: var(--color-bg-lista); 
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 1rem 2rem var(--color-shadow); /* Sombra más sutil */
+  margin: 2rem auto; /* Centrado para que se vea mejor */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* --- Estilos del Formulario --- */
+form {
+  margin-bottom: 1rem;
+}
+
+form div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+form input[type="text"] {
+  flex-grow: 1;
+  background-color: var(--color-bg-input);
+  border: 1.5px solid var(--color-border-input);
+  border-radius: 0.5rem;
+  padding: 0.9rem 1rem;
+  font-size: 1rem;
+  color: var(--color-text-primary); /* Texto principal */
+  font-family: "Inter", sans-serif;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+form input[type="text"]::placeholder {
+  color: var(--color-text-placeholder);
+  opacity: 0.8;
+}
+
+form input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent-primary); /* Borde de acento al enfocar */
+  box-shadow: 0 0 0 0.2rem var(--accent-focus-ring);
+}
+
+button#agregar {
+  flex-shrink: 0;
+  width: 2.875rem;
+  height: 2.875rem;
+  background-color: var(--accent-primary);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  line-height: 0;
+  transition: background-color 0.2s ease; /* Transición de fondo */
+}
+
+button#agregar:hover {
+  background-color: var(--accent-primary-hover); /* Cambio de color en hover */
+}
+
+button#agregar ion-icon {
+  font-size: 1.8rem;
+  color: white; /* El blanco funciona en ambos modos para el botón primario */
+}
+
+/* El párrafo de error */
+form p {
+  font-size: 0.9rem;
+  color: var(--color-text-error);
+  font-weight: 500;
+  margin-top: 0.75rem;
+  /* display: none; */
+}
+
+/* --- Estilos de la Lista de Tareas --- */
+ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* 0 gap, el borde hará la separación */
+  max-height: 20rem;
+  overflow-y: auto;
+  background-color: transparent;
+  padding: 0 0.25rem; /* Pequeño padding para el scrollbar */
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0.5rem; /* Padding horizontal añadido */
+  border-bottom: 1px solid var(--color-border-list); /* Borde más sutil */
+  transition: border-color 0.3s ease;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+li p {
+  flex-grow: 1;
+  margin: 0;
+  color: var(--color-text-primary); /* Texto principal */
+  line-height: 1.5;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  transition: color 0.3s ease;
+}
+
+li button {
+  flex-shrink: 0;
+  width: 2.8rem;
+  height: 2.8rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background-color 0.3s ease; /* Transición de fondo */
+}
+
+li button ion-icon {
+  font-size: 1.7rem;
+  color: white; /* Blanco para los íconos */
+}
+
+
+/* Botón de eliminar */
+button.eliminar {
+  background-color: var(--accent-danger);
+  /* No necesitas bordes si el fondo es sólido */
+}
+button.eliminar:hover {
+  background-color: var(--accent-danger-hover);
+}
+
+/* Botón de editar */
+button.editar {
+  background-color: var(--accent-edit);
+}
+button.editar:hover {
+  background-color: var(--accent-edit-hover);
+}
+
+
+/* === ESTILO DE SCROLLBAR (Usando Variables) === */
+
+ul::-webkit-scrollbar {
+  width: 0.6rem; 
+}
+
+ul::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+ul::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 0.5rem;
+  border: 2px solid var(--color-bg-app); /* Borde del color de fondo de la app */
+  transition: background-color 0.2s ease;
+}
+
+ul::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+
+/* ---  ESTILOS RESPONSIVOS (MÓVILES) --- */
+
+/* Se aplica a cualquier pantalla con un ancho MÁXIMO de 600px */
+@media (max-width: 600px) {
+
+  /*  Hacemos que la app ocupe la pantalla, con menos margen */
+  main {
+    margin: 1rem;
+    padding: 1rem;
+    box-shadow: 0 0.5rem 1rem var(--color-shadow); /* Sombra más sutil */
+  }
+
+  /* Ajustamos el padding del cuerpo (opcional, pero recomendado) */
+  body {
+    padding: 0;
+  }
+
+  /* Permitimos que el formulario se "rompa" en dos líneas si no cabe */
+  form div {
+    flex-wrap: wrap;
+  }
+
+  /* Hacemos que el input y el botón se adapten a ese "rompimiento" */
+  form input[type="text"] {
+    /* Le decimos al input que intente ocupar el 70%... */
+    flex-basis: 70%;
+    /* ...pero que pueda crecer */
+    flex-grow: 1; 
+    min-width: 150px; /* Evita que se encoja demasiado */
+  }
+
+  button#agregar {
+    /* Le decimos al botón que ocupe el espacio restante... */
+    flex-grow: 1;
+    /* ...pero que su base sea su tamaño original */
+    flex-basis: 2.875rem;
+  }
+  
+  /* Hacemos que los ítems de la lista también se puedan "romper" */
+  li {
+    flex-wrap: wrap;
+    gap: 0.75rem; /* Un poco menos de espacio */
+  }
+
+  /*  Hacemos los botones de editar/eliminar un poco más pequeños */
+  li button {
+    width: 2.25rem;  /* (36px) */
+    height: 2.25rem; /* (36px) */
+  }
+
+  li button ion-icon {
+    font-size: 1.6rem;
+  }
+}
