@@ -8,190 +8,28 @@
     <link rel="stylesheet" href="index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <main>
-        <form>
+        <form id="form-tareas">
             <div>
-                <input type="text">
-                <button id="agregar">
-                    <ion-icon id="agregar-btn"  name="add-circle-outline"></ion-icon>
-
+                <input type="text" id="input-tarea" placeholder="Escribe una nueva tarea...">
+                <button id="agregar" type="submit">
+                    <ion-icon id="agregar-btn" name="add-circle-outline"></ion-icon>
                 </button>
             </div>
-            <p class="error-message">Error: No puedes añadir una tarea vacía.</p>
+            <p class="error-message" id="mensaje-error" style="display: none;">Error: No puedes añadir una tarea vacía.</p>
         </form>
-        <ul>
-            <li>
-                <button class="eliminar" >
-                     <ion-icon name="trash-outline"></ion-icon>
-                 </button>
-    
-                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, alias! Maxime officia quas adipisci autem soluta blanditiis est perferendis excepturi, obcaecati nostrum veritatis commodi ducimus itaque tempora natus laudantium laborum.</p>
-    
-                <button class="editar">
-                <ion-icon name="create-outline"></ion-icon>
-            </button>
-            </li>
 
-             <li>
-                <button class="eliminar" >
-                     <ion-icon name="trash-outline"></ion-icon>
-                 </button>
-    
-                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere excepturi sunt nostrum ex neque nobis reprehenderit rerum. In facere animi vero explicabo dicta architecto assumenda dolorum aperiam. Officia, delectus aut?</p>
-    
-                <button class="editar">
-                <ion-icon name="create-outline"></ion-icon>
-            </button>
-            </li>
-             <li>
-                <button class="eliminar" >
-                     <ion-icon name="trash-outline"></ion-icon>
-                 </button>
-    
-                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis natus sit facilis, dignissimos quas quisquam iste vero ea assumenda id doloribus quae cumque, quibusdam eius beatae dolorum optio corrupti. Iusto.
-
-                 </p>
-    
-                <button class="editar">
-                <ion-icon name="create-outline"></ion-icon>
-                 </button>
-            </li>
-
-           <li>
-                <button class="eliminar" >
-                     <ion-icon name="trash-outline"></ion-icon>
-                 </button>
-    
-                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum ratione ex, consectetur, dicta earum corrupti minus dolore libero animi eius iste repellendus aliquam doloremque itaque est veniam fugit maxime eos.
-
-                 </p>
-    
-                <button class="editar">
-                <ion-icon name="create-outline"></ion-icon>
-                 </button>
-            </li>
-
-           <li>
-                <button class="eliminar" >
-                     <ion-icon name="trash-outline"></ion-icon>
-                 </button>
-    
-                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eius, nulla veritatis optio error ipsa animi perferendis? Optio omnis officiis consequuntur neque, assumenda harum quidem possimus, deserunt, incidunt rem iusto nam.
-
-                 </p>
-    
-                <button class="editar">
-                <ion-icon name="create-outline"></ion-icon>
-                 </button>
-            </li>
-
-           <li>
-                <button class="eliminar" >
-                     <ion-icon name="trash-outline"></ion-icon>
-                 </button>
-    
-                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione esse consequuntur placeat nisi voluptas praesentium vero exercitationem qui non quibusdam illum expedita, illo accusantium harum at necessitatibus impedit ut soluta?
-
-                 </p>
-    
-                <button class="editar">
-                <ion-icon name="create-outline"></ion-icon>
-                 </button>
-            </li>
-
-            <li>
-                <button class="eliminar" >
-                     <ion-icon name="trash-outline"></ion-icon>
-                 </button>
-    
-                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora modi, facere amet, sed totam ratione minima distinctio autem ipsam, maiores et consequatur! Atque tempora, cupiditate commodi autem et necessitatibus aut.
-
-                 </p>
-    
-                <button class="editar">
-                <ion-icon name="create-outline"></ion-icon>
-                 </button>
-            </li>
-
-           <li>
-                <button class="eliminar" >
-                     <ion-icon name="trash-outline"></ion-icon>
-                 </button>
-    
-                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quos numquam, fugit dicta iure porro recusandae reiciendis quam deserunt deleniti suscipit corrupti quasi voluptates blanditiis modi. Voluptatibus modi temporibus laborum.
-
-                 </p>
-    
-                <button class="editar">
-                <ion-icon name="create-outline"></ion-icon>
-                 </button>
-            </li>
-
-           <li>
-                <button class="eliminar" >
-                     <ion-icon name="trash-outline"></ion-icon>
-                 </button>
-    
-                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quos numquam, fugit dicta iure porro recusandae reiciendis quam deserunt deleniti suscipit corrupti quasi voluptates blanditiis modi. Voluptatibus modi temporibus laborum.
-
-
-                 </p>
-    
-                <button class="editar">
-                <ion-icon name="create-outline"></ion-icon>
-                 </button>
-            </li>
-
-            <li>
-                <button class="eliminar" >
-                     <ion-icon name="trash-outline"></ion-icon>
-                 </button>
-    
-                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quos numquam, fugit dicta iure porro recusandae reiciendis quam deserunt deleniti suscipit corrupti quasi voluptates blanditiis modi. Voluptatibus modi temporibus laborum.
-
-
-                 </p>
-    
-                <button class="editar">
-                <ion-icon name="create-outline"></ion-icon>
-                 </button>
-            </li>
-
-           <li>
-                <button class="eliminar" >
-                     <ion-icon name="trash-outline"></ion-icon>
-                 </button>
-    
-                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quos numquam, fugit dicta iure porro recusandae reiciendis quam deserunt deleniti suscipit corrupti quasi voluptates blanditiis modi. Voluptatibus modi temporibus laborum.
-
-
-                 </p>
-    
-                <button class="editar">
-                <ion-icon name="create-outline"></ion-icon>
-                 </button>
-            </li>
-
-          <li>
-                <button class="eliminar" >
-                     <ion-icon name="trash-outline"></ion-icon>
-                 </button>
-    
-                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quos numquam, fugit dicta iure porro recusandae reiciendis quam deserunt deleniti suscipit corrupti quasi voluptates blanditiis modi. Voluptatibus modi temporibus laborum.
-
-
-                 </p>
-    
-                <button class="editar">
-                <ion-icon name="create-outline"></ion-icon>
-                </button>
-            </li>
+        <ul id="lista-tareas">
         </ul>
     </main>
-     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    
+    <script src="app.js"></script>
 </body>
-</html>
+</body>
