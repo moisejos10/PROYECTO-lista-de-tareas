@@ -12,9 +12,9 @@ const pendientesElement = document.getElementById('pendientes');
 // URL DE TU SERVIDOR (La base de datos simulada)
 const URL_API = 'http://localhost:3000/tasks';
 
-// ---------------------------------------------
+
 // FUNCIONES AUXILIARES (Contadores y Renderizado)
-// ---------------------------------------------
+
 
 // Actualizar los números del contador
 const actualizarContadores = (tareas) => {
@@ -55,9 +55,9 @@ const renderizarLista = (tareas) => {
     });
 };
 
-// ---------------------------------------------
+
 // MÉTODOS HTTP (Simulación de Backend)
-// ---------------------------------------------
+
 
 // 1. GET: Obtener tareas del servidor
 const obtenerTareas = async () => {
@@ -121,9 +121,9 @@ const cambiarEstadoTarea = async (id, estadoActual) => {
 };
 
 
-// ---------------------------------------------
+
 // EVENTOS DEL DOM
-// ---------------------------------------------
+
 
 // Evento Submit (Agregar)
 formulario.addEventListener('submit', (e) => {

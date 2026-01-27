@@ -1,5 +1,2 @@
 # Ignorar librerías de node
 node_modules/
-
-# Ignorar base de datos local
-db.json
