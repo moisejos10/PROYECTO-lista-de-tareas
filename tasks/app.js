@@ -9,11 +9,8 @@ const totalElement = document.getElementById('total');
 const completadasElement = document.getElementById('completadas');
 const pendientesElement = document.getElementById('pendientes');
 
-// URL DE TU SERVIDOR (La base de datos simulada)
+// URL DEl SERVIDOR DONDE ESTARA LA BASE DE DATOS  (La base de datos simulada)
 const URL_API = 'http://localhost:3000/tasks';
-
-
-// FUNCIONES AUXILIARES (Contadores y Renderizado)
 
 
 // Actualizar los números del contador
@@ -58,7 +55,6 @@ const renderizarLista = (tareas) => {
 
 // MÉTODOS HTTP (Simulación de Backend)
 
-
 // 1. GET: Obtener tareas del servidor
 const obtenerTareas = async () => {
     try {
@@ -83,7 +79,7 @@ const crearTarea = async (tareaNueva) => {
             body: JSON.stringify(tareaNueva)
         });
         
-        // Recargamos la lista para ver el cambio
+        // RecargAR la lista para ver el cambio
         obtenerTareas(); 
     } catch (error) {
         console.error('Error al crear tarea:', error);
@@ -120,10 +116,7 @@ const cambiarEstadoTarea = async (id, estadoActual) => {
     }
 };
 
-
-
 // EVENTOS DEL DOM
-
 
 // Evento Submit (Agregar)
 formulario.addEventListener('submit', (e) => {
@@ -156,12 +149,12 @@ lista.addEventListener('click', (e) => {
     const itemLi = boton.closest('li');
     const idTarea = itemLi.dataset.id; // JSON server usa strings usualmente
 
-    // --- ELIMINAR ---
+    // ELIMINAR 
     if (boton.classList.contains('eliminar')) {
         eliminarTarea(idTarea);
     }
 
-    // --- CHECK / COMPLETAR ---
+    // CHECK / COMPLETAR 
     if (boton.classList.contains('check')) {
         // Necesitamos saber si actualmente es true o false para invertirlo.
         // Una forma rápida es mirar si tiene la clase "completada" en el párrafo

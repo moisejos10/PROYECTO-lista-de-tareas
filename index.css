@@ -238,7 +238,7 @@ button.check:hover {
 }
 
 
-/* === ESTILO DE SCROLLBAR (Usando Variables) === */
+
 
 ul::-webkit-scrollbar {
   width: 0.6rem; 
