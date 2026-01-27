@@ -1,0 +1,24 @@
+{
+  "name": "lista-de-tareas",
+  "version": "1.0.0",
+  "description": "enlance de pagina: https://moisejos10.github.io/PROYECTO-lista-de-tareas/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moisejos10/PROYECTO-lista-de-tareas.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/moisejos10/PROYECTO-lista-de-tareas/issues"
+  },
+  "homepage": "https://github.com/moisejos10/PROYECTO-lista-de-tareas#readme",
+  "dependencies": {
+    "json-server": "^1.0.0-beta.5"
+  }
+}

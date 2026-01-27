@@ -1,153 +1,304 @@
+/* --- PALETA DE COLORES (MODO CLARO POR DEFECTO) --- */
+:root {
+  /* Nombres semánticos para cada color */
+  --color-bg-page: #d8f2f2;
+  --color-bg-lista: #ffffff;
+  --color-bg-input: #fafafa;
+  --color-text-primary: #1a1a1a;
+  --color-text-placeholder: #6c757d;
+  --color-text-error: #ff0000;
+  --color-border-input: #d0d0d0;
+  --color-border-list: rgba(0, 0, 0, 0.1);
+  --color-shadow: rgba(0, 0, 0, 0.15);
+
+  /* Colores de Acento */
+  --accent-primary: #51a8c3;        /* Botón Agregar */
+  --accent-primary-hover: #458ea2;
+  
+  /* NUEVO COLOR VERDE PARA CHECK */
+  --accent-check: #22c55e;          
+  --accent-check-hover: #16a34a;
+
+  --accent-danger: #f81717;         /* Botón Eliminar */
+  --accent-danger-hover: #c92424;
+  
+  --accent-focus-ring: rgba(81, 168, 195, 0.25); 
+
+  /* Colores de Scrollbar */
+  --scrollbar-track: rgba(0, 0, 0, 0.05);
+  --scrollbar-thumb: #b0b0b0;
+  --scrollbar-thumb-hover: #909090;
+}
+
+
+/* --- MODO OSCURO AUTOMÁTICO --- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-page: #474f4f51;
+    --color-bg-lista: #252c2c;
+    --color-bg-input: #1f2626;
+    --color-text-primary: #f0f0f0;
+    --color-text-placeholder: #888888;
+    --color-text-error: #ec0000;
+    --color-border-input: #4a5555;
+    --color-border-list: rgba(255, 255, 255, 0.1);
+    --color-shadow: rgba(0, 0, 0, 0.4);
+
+    --accent-primary: #55b8d4;
+    --accent-primary-hover: #6bc9e3;
+    
+    /* NUEVO COLOR VERDE MODO OSCURO */
+    --accent-check: #4ade80;
+    --accent-check-hover: #22c55e;
+
+    --accent-danger: #ff4d4d;
+    --accent-danger-hover: #ff6b6b;
+    
+    --accent-focus-ring: rgba(85, 184, 212, 0.4);
+
+    --scrollbar-track: rgba(255, 255, 255, 0.05);
+    --scrollbar-thumb: #555;
+    --scrollbar-thumb-hover: #777;
+  }
+}
+
+
+/* --- ESTILOS GENERALES Y DE LA APP --- */
 body {
-    padding-top: 4rem;
+  background-color: var(--primary-color);
+  font-family: "Inter", sans-serif;
+  transition: background-color 0.3s ease;
 }
 
-nav {
-    height: 4rem;
-    padding: 0 1rem;
-    border-bottom: 2px solid var(--border-color);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    backdrop-filter: blur(80px);
+main {
+  width: 100%;
+  max-width: 40rem;
+  background-color: var(--color-bg-lista); 
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 1rem 2rem var(--color-shadow);
+  margin: 2rem auto;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-#nav-container {
-    height: inherit;
-    max-width: var(--max-width-page);
-    margin: 0 auto;
+/* --- Estilos del Formulario --- */
+form {
+  margin-bottom: 0.5rem; /* Reduje un poco el margen para pegar los contadores */
+}
+
+form div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+form input[type="text"] {
+  flex-grow: 1;
+  background-color: var(--color-bg-input);
+  border: 1.5px solid var(--color-border-input);
+  border-radius: 0.5rem;
+  padding: 0.9rem 1rem;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  font-family: "Inter", sans-serif;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+form input[type="text"]::placeholder {
+  color: var(--color-text-placeholder);
+  opacity: 0.8;
+}
+
+form input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 0.2rem var(--accent-focus-ring);
+}
+
+button#agregar {
+  flex-shrink: 0;
+  width: 2.875rem;
+  height: 2.875rem;
+  background-color: var(--accent-primary);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  line-height: 0;
+  transition: background-color 0.2s ease;
+}
+
+button#agregar:hover {
+  background-color: var(--accent-primary-hover);
+}
+
+button#agregar ion-icon {
+  font-size: 1.8rem;
+  color: white;
+}
+
+form p {
+  font-size: 0.9rem;
+  color: var(--color-text-error);
+  font-weight: 500;
+  margin-top: 0.75rem;
+}
+
+/* --- NUEVOS ESTILOS PARA LOS CONTADORES --- */
+#contadores {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0.5rem 0.5rem;
+    color: var(--color-text-placeholder);
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--color-border-list);
 }
 
-#nav-logo {
-    width: 3rem;
-    height: 3rem;
-    color: var(--primary-color);
+#contadores b {
+    color: var(--color-text-primary);
 }
 
-#nav-menu-btn-icon {
-    width: 2.5rem;
-    height: 2.5rem;
+
+/* --- Estilos de la Lista de Tareas --- */
+ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-height: 20rem;
+  overflow-y: auto;
+  background-color: transparent;
+  padding: 0 0.25rem;
 }
 
-#nav-menu-btn {
-    border: 2px solid var(--border-color);
-    background-color: transparent;
-    padding: 0 0.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 0.350rem;
-    transition: all 0.1s ease-in-out;
+li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0.5rem;
+  border-bottom: 1px solid var(--color-border-list);
+  transition: border-color 0.3s ease;
 }
 
-#nav-menu-btn:active {
-    background-color: var(--nav-btn-active-color);
+li:last-child {
+  border-bottom: none;
 }
 
-.nav-link {
-    color: var(--text-color);
-    text-decoration: none;
+li p {
+  flex-grow: 1;
+  margin: 0;
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  transition: color 0.3s ease;
 }
 
-.nav-link:hover {
-   text-decoration: underline;
+/* NUEVA CLASE PARA TAREA COMPLETADA */
+li p.completada {
+    text-decoration: line-through;
+    opacity: 0.5;
 }
 
-#nav-links-container {
-    display: none;
-    gap: 1rem;
+li button {
+  flex-shrink: 0;
+  width: 2.8rem;
+  height: 2.8rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background-color 0.3s ease;
 }
 
-#main {
-    max-width: var(--max-width-page);
-    margin: 0 auto;
-    height: calc(100svh - 4rem);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    padding: 0 1rem;
+li button ion-icon {
+  font-size: 1.7rem;
+  color: white;
 }
 
-#main-desc-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+
+/* Botón de eliminar */
+button.eliminar {
+  background-color: var(--accent-danger);
+ 
+}
+button.eliminar:hover {
+  background-color: var(--accent-danger-hover);
 }
 
-#main-title {
-    font-size: 3rem;
-    color: var(--primary-color);
+/* Boton chek */
+button.check {
+  background-color: var(--accent-check);
+  
+}
+button.check:hover {
+  background-color: var(--accent-check-hover);
 }
 
-#main-desc-text {
-    text-align: justify;
+
+/* === ESTILO DE SCROLLBAR (Usando Variables) === */
+
+ul::-webkit-scrollbar {
+  width: 0.6rem; 
 }
 
-#main-desc-btn {
-    width: fit-content;
-    align-self: center;
-    padding: 0.5rem 1rem;
-    font-size: 1.25rem;
-    font-weight: 700;
-    border-radius: 0.325rem;
-    text-transform: uppercase;
-    background-color: transparent;
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
+ul::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 0.5rem;
+  margin: 0.5rem 0;
 }
 
-#main-desc-btn:active {
-    background-color: #e36199;
-    border-color: #e36199;
-    color: white;
+ul::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 0.5rem;
+  border: 2px solid var(--color-bg-lista); /* Ajustado a bg-lista */
+  transition: background-color 0.2s ease;
 }
 
-#main-desc-btn:hover {
-    background-color: #e36199;
-    border-color: #e36199;
-    color: white;
+ul::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
 }
 
-@media (min-width: 768px) {
-    #nav-menu-btn {
-        display: none;
-    }
+/* ---  ESTILOS RESPONSIVOS (MÓVILES) --- */
+@media (max-width: 600px) {
+  main {
+    margin: 1rem;
+    padding: 1rem;
+    box-shadow: 0 0.5rem 1rem var(--color-shadow);
+  }
 
-    #nav-links-container {
-        display: flex;
-    }
+  body {
+    padding: 0;
+  }
 
-    #main {
-        flex-direction: row;
-        width: 80%;
-    }
+  form div {
+    flex-wrap: wrap;
+  }
 
-    #main-title {
-        font-size: 3.5rem;
-    }
+  form input[type="text"] {
+    flex-basis: 70%;
+    flex-grow: 1; 
+    min-width: 150px;
+  }
 
-    #main-desc-container {
-        width: 50%;
-    }
+  button#agregar {
+    flex-grow: 1;
+    flex-basis: 2.875rem;
+  }
+  
+  li {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  li button {
+    width: 2.25rem;  
+    height: 2.25rem; 
+  }
+
+  li button ion-icon {
+    font-size: 1.6rem;
+  }
 }
-
-@media (min-width: 1024px) {
-    #main-title {
-        font-size: 5rem;
-    }
-
-    #main-desc-text {
-        font-size: 1.2rem;
-    }
-
-    #main-desc-btn {
-        font-size: 1.4rem;
-    }
-}
-

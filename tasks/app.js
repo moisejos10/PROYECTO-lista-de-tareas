@@ -4,33 +4,50 @@ const input = document.getElementById('input-tarea');
 const lista = document.getElementById('lista-tareas');
 const mensajeError = document.getElementById('mensaje-error');
 
-// ESTADO INICIAL (Cargar desde LocalStorage o array vacío)
-let tareas = JSON.parse(localStorage.getItem('tareas')) || [];//perse  para traducir el localstorage al momento de leer 
+// Elementos de los contadores
+const totalElement = document.getElementById('total');
+const completadasElement = document.getElementById('completadas');
+const pendientesElement = document.getElementById('pendientes');
 
-// FUNCIÓN PARA GUARDAR EN LOCALSTORAGE
-const guardarLocal = () => {
-    localStorage.setItem('tareas', JSON.stringify(tareas)); //stringify para traducir al localstorage al momento de guardar
+// URL DE TU SERVIDOR (La base de datos simulada)
+const URL_API = 'http://localhost:3000/tasks';
+
+// ---------------------------------------------
+// FUNCIONES AUXILIARES (Contadores y Renderizado)
+// ---------------------------------------------
+
+// Actualizar los números del contador
+const actualizarContadores = (tareas) => {
+    const total = tareas.length;
+    const completadas = tareas.filter(tarea => tarea.check).length;
+    const pendientes = total - completadas;
+
+    totalElement.textContent = total;
+    completadasElement.textContent = completadas;
+    pendientesElement.textContent = pendientes;
 };
 
-// FUNCIÓN PARA RENDERIZAR LA LISTA
-const renderizarTareas = () => {
-    lista.innerHTML = ''; // innerhtml para limpiamos la lista visual
+// Renderizar la lista en el HTML
+const renderizarLista = (tareas) => {
+    lista.innerHTML = ''; // Limpiar lista visual
 
     tareas.forEach((tarea) => {
-        // Creamos el HTML dinámicamente 
         const item = document.createElement('li');
-        // Agregamos un atributo data-id para saber cuál borrar/editar luego
         item.dataset.id = tarea.id; 
+
+        // Estilos condicionales según si está completada
+        const claseTexto = tarea.check ? 'completada' : '';
+        const iconoCheck = tarea.check ? 'checkmark-done-outline' : 'checkmark-outline';
 
         item.innerHTML = `
             <button class="eliminar">
                  <ion-icon name="trash-outline"></ion-icon>
             </button>
 
-            <p>${tarea.texto}</p>
+            <p class="${claseTexto}">${tarea.texto}</p>
 
-            <button class="editar">
-                <ion-icon name="create-outline"></ion-icon>
+            <button class="check">
+                <ion-icon name="${iconoCheck}"></ion-icon>
             </button>
         `;
 
@@ -38,13 +55,81 @@ const renderizarTareas = () => {
     });
 };
 
-// 5. AGREGAR TAREA
-formulario.addEventListener('submit', (e) => {
-    e.preventDefault(); // Evita que la página se recargue al enviar el form
+// ---------------------------------------------
+// MÉTODOS HTTP (Simulación de Backend)
+// ---------------------------------------------
 
+// 1. GET: Obtener tareas del servidor
+const obtenerTareas = async () => {
+    try {
+        const respuesta = await fetch(URL_API);
+        const tareas = await respuesta.json();
+        
+        renderizarLista(tareas);
+        actualizarContadores(tareas);
+    } catch (error) {
+        console.error('Error al obtener tareas:', error);
+    }
+};
+
+// 2. POST: Crear nueva tarea en el servidor
+const crearTarea = async (tareaNueva) => {
+    try {
+        await fetch(URL_API, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(tareaNueva)
+        });
+        
+        // Recargamos la lista para ver el cambio
+        obtenerTareas(); 
+    } catch (error) {
+        console.error('Error al crear tarea:', error);
+    }
+};
+
+// 3. DELETE: Eliminar tarea del servidor
+const eliminarTarea = async (id) => {
+    try {
+        await fetch(`${URL_API}/${id}`, {
+            method: 'DELETE'
+        });
+        
+        obtenerTareas();
+    } catch (error) {
+        console.error('Error al eliminar tarea:', error);
+    }
+};
+
+// 4. PATCH: Editar estado (Check) en el servidor
+const cambiarEstadoTarea = async (id, estadoActual) => {
+    try {
+        await fetch(`${URL_API}/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ check: !estadoActual }) // Invertimos el valor
+        });
+        
+        obtenerTareas();
+    } catch (error) {
+        console.error('Error al actualizar tarea:', error);
+    }
+};
+
+
+// ---------------------------------------------
+// EVENTOS DEL DOM
+// ---------------------------------------------
+
+// Evento Submit (Agregar)
+formulario.addEventListener('submit', (e) => {
+    e.preventDefault();
     const texto = input.value.trim();
 
-    // Validación simple
     if (texto === '') {
         mensajeError.style.display = 'block';
         return;
@@ -52,52 +137,40 @@ formulario.addEventListener('submit', (e) => {
     
     mensajeError.style.display = 'none';
 
-    // Creamos el objeto tarea
+    // Creamos el objeto tarea (JSON Server crea el ID automáticamente, 
+    // pero podemos enviarlo como string si preferimos)
     const nuevaTarea = {
-        id: Date.now(),
-        texto: texto
+        texto: texto,
+        check: false
     };
 
-    tareas.push(nuevaTarea);
-    guardarLocal();
-    renderizarTareas();
-    input.value = ''; // Limpiar input
+    crearTarea(nuevaTarea);
+    input.value = ''; 
 });
 
-// DELEGACIÓN DE EVENTOS (DETECTAR CLICS EN BORRAR O EDITAR)
+// Evento Click (Eliminar o Check)
 lista.addEventListener('click', (e) => {
-    // Usamos .closest('button') porque el usuario puede hacer clic en el ícono <ion-icon>
-    // y necesitamos subir hasta encontrar el botón contenedor.
     const boton = e.target.closest('button');
+    if (!boton) return;
 
-    if (!boton) return; // Si no clickeó un botón, no hacemos nada
-
-    // Obtenemos el ID de la tarea desde el elemento padre <li>
     const itemLi = boton.closest('li');
-    const idTarea = parseInt(itemLi.dataset.id);
+    const idTarea = itemLi.dataset.id; // JSON server usa strings usualmente
 
-    // --- ACCIÓN DE ELIMINAR ---
+    // --- ELIMINAR ---
     if (boton.classList.contains('eliminar')) {
-        // Filtramos: Dejamos todas las tareas MENOS la que tiene ese ID
-        tareas = tareas.filter(tarea => tarea.id !== idTarea);
-        guardarLocal();
-        renderizarTareas();
+        eliminarTarea(idTarea);
     }
 
-    // --- ACCIÓN DE EDITAR ---
-    if (boton.classList.contains('editar')) {
-        const tareaAEditar = tareas.find(tarea => tarea.id === idTarea);
-        
-        // Un prompt sencillo para editar (se puede mejorar luego con modales)
-        const nuevoTexto = prompt("Edita tu tarea:", tareaAEditar.texto);
+    // --- CHECK / COMPLETAR ---
+    if (boton.classList.contains('check')) {
+        // Necesitamos saber si actualmente es true o false para invertirlo.
+        // Una forma rápida es mirar si tiene la clase "completada" en el párrafo
+        const parrafo = itemLi.querySelector('p');
+        const estaCompletada = parrafo.classList.contains('completada');
 
-        if (nuevoTexto !== null && nuevoTexto.trim() !== "") {
-            tareaAEditar.texto = nuevoTexto.trim();
-            guardarLocal();
-            renderizarTareas();
-        }
+        cambiarEstadoTarea(idTarea, estaCompletada);
     }
 });
 
-// 7. CARGA INICIAL
-renderizarTareas();
+// CARGA INICIAL
+document.addEventListener('DOMContentLoaded', obtenerTareas);
