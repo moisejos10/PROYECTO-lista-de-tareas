@@ -137,11 +137,10 @@
     font-size: 1.25rem;
     color: var(--text-color);
     opacity: 0.85;
-    margin-bottom: 3rem;
+    margin: 0 auto 3rem auto; /* Centra el bloque a los lados y mantiene el margen inferior de 3rem */
     line-height: 1.7;
     max-width: 80%;
 }
-
 #main-desc-btn {
     background: var(--accent-primary);
     color: white;
